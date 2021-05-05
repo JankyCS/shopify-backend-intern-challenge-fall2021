@@ -1,7 +1,9 @@
 const mongoose = require('mongoose')
 
+const mongoUrl = 'mongodb://127.0.0.1:27017/image-repo'
+
 mongoose
-    .connect('mongodb://127.0.0.1:27017/image-repo', { useNewUrlParser: true })
+    .connect(mongoUrl, { useNewUrlParser: true })
     .catch(e => {
         console.error('Connection error', e.message)
     })

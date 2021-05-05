@@ -226,9 +226,9 @@ router.post("/delete", (req, res) => {
                         return res.status(400).json({ error: "file not found" });
                     }
                     else if(img.authorID === user_id) {
-                        path = "./images/"+filename
+                        filepath = "./images/"+filename
                         try {
-                            fs.unlinkSync(path)
+                            fs.unlinkSync(filepath)
                         } catch(err) {
                             res.status(400).json({ error: "error deleting" });
                         }
@@ -291,10 +291,10 @@ router.post("/deleteAll", (req, res) => {
                 }
                 else{
                     images.forEach(image => {
-                        path = "./images/"+image.filename
+                        filepath = "./images/"+image.filename
                         console.log(image)
                         try {
-                            fs.unlinkSync(path)
+                            fs.unlinkSync(filepath)
                         } catch(err) {
                             return res.status(400).json({ error: err });
                         }
