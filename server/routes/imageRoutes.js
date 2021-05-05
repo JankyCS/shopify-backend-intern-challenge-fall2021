@@ -16,16 +16,52 @@ const storage = multer.diskStorage({
     }
 });
 
-const fileFilter = (req, file, cb) => {
+const authValidatorFileFilter = (req, file, cb) => {
     const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     if(allowedFileTypes.includes(file.mimetype)) {
+        if(req.headers == null){
+            cb(null, false);
+            return
+        }
+        const auth = req.headers.authorization
+        if(auth==null){
+            cb(null, false);
+            return
+        }
+        const spl = auth.split(" ")
+        if(spl.length<1){
+            cb(null, false);
+            return
+        }
+        const token = spl[1]
+
+        jwt.verify(token,"secret", (err,decoded) =>{
+            if(err){
+                console.log(err)
+                cb(null, false);
+                return
+            }
+            else{
+                var user_id = decoded.id; 
+                User.findById(user_id, function(err, user) {
+                if(err){
+                    cb(null, false);
+                    return
+                }
+                if(!user){
+                    cb(null, false);
+                    return
+                }
+                });
+            }
+        })
         cb(null, true);
     } else {
         cb(null, false);
     }
 }
 
-let upload = multer({ storage, fileFilter });
+let upload = multer({ storage, authValidatorFileFilter });
 
 router.route('/uploadOne').post(upload.single('photo'), (req, res) => {
     console.log(req.file)
@@ -132,10 +168,16 @@ router.route('/uploadMultiple').post(upload.array('photos'), (req, res) => {
             });
             return res.status(200).json({ good: "good" });           
           }
-         
         });
       }
     })
 });
+
+router.post("/viewAll", (req, res) => {
+    Image.find({}, function(err, images) {
+        res.send(images);  
+    });
+});
+
 
 module.exports = router;
