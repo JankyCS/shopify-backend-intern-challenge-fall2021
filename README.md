@@ -86,6 +86,6 @@ To view all of the images in the repo, make a POST request to ```http://localhos
 The response will be an array of the data for each image, including its file name and the id of the author.
 
 8. View a Particular Image
-To view any particular uploaded image, make a GET request to ```http://localhost:3000/${FILE_NAME}```. No authentication token is required for this endpoint. The file name can be retrieved from the viewAll endpoint.
+To view any particular uploaded image, make a GET request to ```http://localhost:3000/${FILE_NAME}```. No authentication token is required for this endpoint. The file name can be retrieved from the viewAll endpoint, or can be saved from when the image was originally uploaded.
 
 
