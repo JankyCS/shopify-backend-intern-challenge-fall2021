@@ -39,7 +39,6 @@ const authValidatorFileFilter = (req, file, cb) => {
 
         jwt.verify(token,"secret", (err,decoded) =>{
             if(err){
-                console.log(err)
                 cb(null, false);
                 return
             }
@@ -66,7 +65,6 @@ const authValidatorFileFilter = (req, file, cb) => {
 let upload = multer({ storage, authValidatorFileFilter });
 
 router.route('/uploadOne').post(upload.single('photo'), (req, res) => {
-    console.log(req.file)
     if(req.file ==null || req.file.filename == null){
         return res.status(400).json({ error: "Missing photo file" });
     }
@@ -85,7 +83,6 @@ router.route('/uploadOne').post(upload.single('photo'), (req, res) => {
 
     jwt.verify(token,"secret", (err,decoded) =>{
       if(err){
-        console.log(err)
         return res
           .status(400)
           .json({ error: "Invalid/Expired Token"});
@@ -104,16 +101,14 @@ router.route('/uploadOne').post(upload.single('photo'), (req, res) => {
             .json({ error: "User not found" });
           }
           else{
-            console.log("User Found ") 
             const img = new Image({
                 filename:photo,
                 authorID:user_id
             })
 
             img.save()
-                .then(i => res.json(i))
+                .then(i => res.status(200).json({ success: true, filename:photo }))
                 .catch(err => res.status(400).json({ error: err }));
-            return res.status(200).json({ success: true, filename:photo });           
           }
          
         });
@@ -122,7 +117,6 @@ router.route('/uploadOne').post(upload.single('photo'), (req, res) => {
 });
 
 router.route('/uploadMultiple').post(upload.array('photos'), (req, res) => {
-    // console.log(req.file)
     if(req.files == null || req.files.length==0){
         return res.status(400).json({ error: "Missing photo files" });
     }
@@ -140,7 +134,6 @@ router.route('/uploadMultiple').post(upload.array('photos'), (req, res) => {
 
     jwt.verify(token,"secret", (err,decoded) =>{
       if(err){
-        console.log(err)
         return res
           .status(400)
           .json({ error: "Invalid/Expired Token"});
@@ -159,7 +152,6 @@ router.route('/uploadMultiple').post(upload.array('photos'), (req, res) => {
             .json({ error: "User not found" });
           }
           else{
-            console.log("User Found ")
             filenames = []
             photos.forEach(p => {
                 filenames.push(p.filename)
@@ -203,7 +195,6 @@ router.post("/delete", (req, res) => {
 
     jwt.verify(token,"secret", (err,decoded) =>{
       if(err){
-        console.log(err)
         return res
           .status(400)
           .json({ error: "Invalid/Expired Token"});
@@ -268,7 +259,7 @@ router.post("/deleteAll", (req, res) => {
 
     jwt.verify(token,"secret", (err,decoded) =>{
       if(err){
-        console.log(err)
+        (err)
         return res
           .status(400)
           .json({ error: "Invalid/Expired Token"});
@@ -294,7 +285,6 @@ router.post("/deleteAll", (req, res) => {
                 else{
                     images.forEach(image => {
                         filepath = "./images/"+image.filename
-                        console.log(image)
                         try {
                             fs.unlinkSync(filepath)
                         } catch(err) {
