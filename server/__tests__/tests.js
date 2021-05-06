@@ -33,8 +33,6 @@ it("Should register user, try login with wrong password, and try login with none
   });
 
   expect(res3.body.error).toBe('Username not found');
-  console.log(res3.body)
-
   done();
 });
 
@@ -140,14 +138,26 @@ it("Create two users and have second fail to delete the firsts image", async don
 
   const filename = res3.body.filename
   
+  const res8 = await request.post("/image/viewAll")
+  expect(res8.body.success).toBeTruthy();
+  expect(res8.body.images.length).toBe(1);
+
   res = await request.post("/image/delete").set('Authorization', bearer2).send({
     filenames: [filename]
   });
 
   expect(res.body.error).toBe("User Not Authorized To Delete (Must be the author)");
 
+  const res9 = await request.post("/image/viewAll")
+  expect(res9.body.success).toBeTruthy();
+  expect(res9.body.images.length).toBe(1);
+
   const res4 = await request.post("/image/deleteAll").set('Authorization', bearer);
   expect(res4.body.success).toBeTruthy();
+
+  const res10 = await request.post("/image/viewAll")
+  expect(res10.body.success).toBeTruthy();
+  expect(res10.body.images.length).toBe(0);
 
   done();
 });
