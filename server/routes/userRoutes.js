@@ -7,12 +7,12 @@ const bcrypt = require("bcryptjs");
 router.post("/register", (req, res) => {
     // Check validation
     if (req.body.username == null || req.body.password == null) {
-      return res.status(400).json({ error: "missing username or pass" });
+      return res.status(400).json({ error: "Missing Username or Pass" });
     }
 
     User.findOne({ username: req.body.username }).then(user => {
     if (user) {
-      return res.status(400).json({ email: "User already exists" });
+      return res.status(400).json({ error: "Username in use" });
     }
     else {
         const newUser = new User({
@@ -37,7 +37,7 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
     // Form validation
     if (req.body.username == null || req.body.password == null) {
-      return res.status(400).json({ error: "missing username or pass" });
+      return res.status(400).json({ error: "Missing Username or Pass" });
     }
     const username = req.body.username;
     const password = req.body.password;
@@ -45,7 +45,7 @@ router.post("/login", (req, res) => {
     User.findOne({ username }).then(user => {
     // Check if user exists
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: "Username not found" });
     }
     // Check password
     bcrypt.compare(password, user.password).then(isMatch => {
@@ -73,7 +73,7 @@ router.post("/login", (req, res) => {
       } else {
         return res
           .status(400)
-          .json({ passwordincorrect: "Password incorrect" });
+          .json({ error: "Incorrect Password" });
       }
     });
   });
