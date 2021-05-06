@@ -12,6 +12,8 @@ Depending on your configuration for mongodb, you may have to run something like 
 
 ```mongod --dbpath="C:\Program Files\MongoDB\Server\4.2\data"```
 
+Keep this terminal/shell open
+
 2. Open a seperate terminal/shell and clone the repository
 
 ```git clone https://github.com/JankyCS/shopify-backend-intern-challenge-fall2021.git```
