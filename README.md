@@ -37,22 +37,26 @@ First, complete all the instructions for setup. Make sure the mongodb is still u
 I recommend using Postman to use this application, as it will make image uploads easier, but feel free to use any tool to make thee API requests.
 
 1. Start the server
+
 In the server directory, run:
 ```node start.js```
 
 2. Register a User
+
 Make a POST request to ```http://localhost:3000/user/register``` with the username and password of the new user
 ![Register](README_images/register.png)
 
 The response will contain the encrypted password.
 
 3. Login as a User
+
 Make a POST request to ```http://localhost:3000/user/login``` with the username and password of the registered user
 ![login](README_images/login.png)
 
 The response will contain a JSON Web Token. Keep this token, as the JWT will be used to authenticate for all of the upload/delete endpoints
 
 4. Authentication
+
 All upload/delete endpoints will require the token to be sent in the header as Authorization, to authorize the user
 ![authenticate](README_images/authToken.png)
 
@@ -86,6 +90,7 @@ To view all of the images in the repo, make a POST request to ```http://localhos
 The response will be an array of the data for each image, including its file name and the id of the author.
 
 8. View a Particular Image
+
 To view any particular uploaded image, make a GET request to ```http://localhost:3000/${FILE_NAME}```. No authentication token is required for this endpoint. The file name can be retrieved from the viewAll endpoint, or can be saved from when the image was originally uploaded.
 
 
