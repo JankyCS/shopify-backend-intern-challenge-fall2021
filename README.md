@@ -1,6 +1,6 @@
 # Shopify Backend Intern Challenge: Image Repo
 ## Setup
-Note that these instructions are for a Windows machine. If trying to run on a different OS, some instructions may differ (although the changes should be straightforward and obvious enough)
+Note that these instructions are for a Windows machine. If trying to run on a different OS, some setup instructions may differ (although the changes should be straightforward and obvious enough)
 
 In order to run this application, you will need to have Node.js, npm, and mongo installed on your system.
 
