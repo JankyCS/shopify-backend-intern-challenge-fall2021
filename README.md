@@ -4,7 +4,7 @@ Note that these instructions are for a Windows machine. If trying to run on a di
 
 In order to run this application, you will need to have Node.js, npm, and mongo installed on your system.
 
-1. Start a local instance of MongoDB at localhost:27017. In a seperate terminal/shell, run:
+1. Start a local instance of MongoDB at localhost:27017. In a terminal/shell, run:
 
 ```mongod```
 
@@ -12,7 +12,7 @@ Depending on your configuration for mongodb, you may have to run something like 
 
 ```mongod --dbpath="C:\Program Files\MongoDB\Server\4.2\data"```
 
-2. Open your terminal/shell and clone the repository
+2. Open a seperate terminal/shell and clone the repository
 
 ```git clone https://github.com/JankyCS/shopify-backend-intern-challenge-fall2021.git```
 
