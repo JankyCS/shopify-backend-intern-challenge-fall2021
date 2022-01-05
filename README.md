@@ -1,4 +1,4 @@
-# Shopify Backend Intern Challenge: Image Repo
+# Shopify Developer Intern Challenge: Image Repo
 ## Setup
 Note that these instructions are for a Windows machine. If trying to run on a different OS, some setup instructions may differ (although the changes should be straightforward and obvious enough)
 
